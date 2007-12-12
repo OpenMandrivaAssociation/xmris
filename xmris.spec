@@ -14,7 +14,7 @@ Patch0:		xmris-config.patch.bz2
 License: 	GPL
 Group:		Games/Arcade
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Buildrequires: XFree86-devel
+Buildrequires: X11-devel
 #(nl) needed for rman
 Buildrequires: xorg-x11
 URL:		http://www.cs.bris.ac.uk/~nathan/xmris
