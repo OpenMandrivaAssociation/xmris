@@ -42,17 +42,16 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/xmsit.*
 chmod 755 $RPM_BUILD_ROOT/var/lib/games/xmris
 
 # menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 mkdir -p $RPM_BUILD_ROOT%{_miconsdir}
 mkdir -p $RPM_BUILD_ROOT%{_liconsdir}
-cat << EOF > $RPM_BUILD_ROOT/%_menudir/%name
-?package(xmris): \
-	needs="X11"\
-	section="Amusement/Arcade"\
-	title="XMrIs"\
-	longtitle="Mr. Is, a Mr. Do clone for X"\
-	command="%{_bindir}/xmris"\
-	icon="xmris.png"
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%name.desktop
+[Desktop Entry]
+Type=Application
+Categories=Game;ArcadeGame;
+Name=XMrIs
+Comment=Mr. Is, a Mr. Do clone for X
+Exec=%{_bindir}/xmrisIcon=xmris
 EOF
 install -m 644 %{SOURCE10} $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 install -m 644 %{SOURCE11} $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
@@ -82,7 +81,7 @@ install -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
 
 %{_mandir}/man1/*
-%{_menudir}/%{name}
+%{_datadir}/applications/mandriva-%{name}.desktop
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
