@@ -15,7 +15,7 @@ License: 	GPL
 Group:		Games/Arcade
 Buildrequires: X11-devel
 #(nl) needed for rman
-Buildrequires: xorg-x11
+Buildrequires: xorg-x11 imake
 URL:		http://www.cs.bris.ac.uk/~nathan/xmris
 
 %description
