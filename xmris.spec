@@ -34,11 +34,9 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/X11R6
 mkdir -p $RPM_BUILD_ROOT/var/lib/games/xmris
 make install install.man DESTDIR=$RPM_BUILD_ROOT
-mv $RPM_BUILD_ROOT/usr/X11R6/* $RPM_BUILD_ROOT/%{_prefix}/
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}
-mv $RPM_BUILD_ROOT/%{_prefix}/man/* $RPM_BUILD_ROOT/%{_mandir}
 
-rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/xmsit.*
+#rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/xmsit.*
 chmod 755 $RPM_BUILD_ROOT/var/lib/games/xmris
 
 # menu
@@ -74,12 +72,7 @@ install -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/Xmris
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/xmris
 %{_libdir}/X11/app-defaults
-%{_libdir}/X11/doc/html/xmred.1.html
-%{_libdir}/X11/doc/html/xmris.1.html
-%{_libdir}/X11/doc/html/xmsit.1.html
 /var/lib/games/xmris
-
-
 %{_mandir}/man1/*
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_miconsdir}/%{name}.png
