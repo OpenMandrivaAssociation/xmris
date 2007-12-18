@@ -36,7 +36,6 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/games/xmris
 make install install.man DESTDIR=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}
 
-#rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/xmsit.*
 chmod 755 $RPM_BUILD_ROOT/var/lib/games/xmris
 
 # menu
