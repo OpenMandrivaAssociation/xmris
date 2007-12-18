@@ -70,7 +70,7 @@ install -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %{_bindir}/xmred
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/Xmris
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/xmris
-%{_libdir}/X11/app-defaults
+/usr/lib/X11/app-defaults
 /var/lib/games/xmris
 %{_mandir}/man1/*
 %{_datadir}/applications/mandriva-%{name}.desktop
