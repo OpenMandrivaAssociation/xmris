@@ -13,6 +13,7 @@ Source12:	%{name}.48.png
 Patch0:		xmris-config.patch.bz2
 License: 	GPL
 Group:		Games/Arcade
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Buildrequires: X11-devel
 #(nl) needed for rman
 Buildrequires: xorg-x11 imake
