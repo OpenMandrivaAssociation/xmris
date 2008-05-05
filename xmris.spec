@@ -1,6 +1,6 @@
 %define name	xmris
 %define version 4.0.5
-%define release %mkrel 4
+%define release %mkrel 5
 
 Name:		%{name}
 Summary:	A version of 'Mr Do' video game for X
@@ -28,6 +28,7 @@ Mr Is is a version of the Mr Do video arcade game for the X Window System.
 
 %build
 xmkmf -a
+perl -p -i -e "s|XAPPLOADDIR = .*|XAPPLOADDIR = %{_datadir}/X11/app-defaults|" Makefile
 make
 
 %install
@@ -35,6 +36,13 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/X11R6
 mkdir -p $RPM_BUILD_ROOT/var/lib/games/xmris
 make install install.man DESTDIR=$RPM_BUILD_ROOT
+
+# A link to ../../../etc/X11/app-defaults is made
+APPDEF=%{buildroot}%{_libdir}/X11/app-defaults
+if   [ -L $APPDEF ]; then rm    $APPDEF
+elif [ -d $APPDEF ]; then rmdir $APPDEF
+fi
+
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}
 
 chmod 755 $RPM_BUILD_ROOT/var/lib/games/xmris
@@ -69,9 +77,8 @@ install -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %doc COPYRIGHT CHANGES* README* COPYING-2.0 ChangeLog
 %{_bindir}/xmris
 %{_bindir}/xmred
-%config(noreplace) %{_sysconfdir}/X11/app-defaults/Xmris
-%config(noreplace) %{_sysconfdir}/X11/app-defaults/xmris
-/usr/lib/X11/app-defaults
+%{_datadir}/X11/app-defaults/Xmris
+%{_gamesdatadir}/%{name}/gardens
 /var/lib/games/xmris
 %{_mandir}/man1/*
 %{_datadir}/applications/mandriva-%{name}.desktop
