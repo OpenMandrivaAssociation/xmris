@@ -11,12 +11,13 @@ Source10:	%{name}.16.png
 Source11:	%{name}.32.png
 Source12:	%{name}.48.png
 Patch0:		xmris-config.patch.bz2
+Patch1:		xmris-scoring.patch
+Patch2:		xmris-signal-handling.patch
+Patch3:		xmris-wm-protocol.patch
 License: 	GPL
 Group:		Games/Arcade
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Buildrequires: X11-devel
-#(nl) needed for rman
-Buildrequires: xorg-x11 imake
+Buildrequires:	libxt-devel imake
 URL:		http://www.cs.bris.ac.uk/~nathan/xmris
 
 %description
@@ -24,7 +25,10 @@ Mr Is is a version of the Mr Do video arcade game for the X Window System.
 
 %prep
 %setup -q -n %{name}.%{version}
-%patch -p1
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 xmkmf -a
@@ -33,19 +37,20 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/X11R6
-mkdir -p $RPM_BUILD_ROOT/var/lib/games/xmris
+mkdir -p  $RPM_BUILD_ROOT/var/lib/games/xmris
+cat > $RPM_BUILD_ROOT/var/lib/games/xmris/xmris.scores << EOF
++0
++8182
+EOF
 make install install.man DESTDIR=$RPM_BUILD_ROOT
 
-# A link to ../../../etc/X11/app-defaults is made
-APPDEF=%{buildroot}%{_libdir}/X11/app-defaults
+# A link to ../../../etc/X11/app-defaults is made and named lib in x86_64
+APPDEF=%{buildroot}/usr/lib/X11/app-defaults
 if   [ -L $APPDEF ]; then rm    $APPDEF
 elif [ -d $APPDEF ]; then rmdir $APPDEF
 fi
 
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}
-
-chmod 755 $RPM_BUILD_ROOT/var/lib/games/xmris
 
 # menu
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
@@ -70,19 +75,22 @@ install -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 %{clean_menus}
 
 %clean
-#rm -rf $RPM_BUILD_ROOT
+chmod 755 $RPM_BUILD_ROOT/var/lib/games/xmris
+rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-, root, root,755)
+%defattr(-, root, games, 755)
 %doc COPYRIGHT CHANGES* README* COPYING-2.0 ChangeLog
-%{_bindir}/xmris
-%{_bindir}/xmred
+%{_gamesbindir}/xmred
+%attr(2755, root, games) %{_gamesbindir}/xmris
 %{_datadir}/X11/app-defaults/Xmris
 %{_gamesdatadir}/%{name}/gardens
-/var/lib/games/xmris
 %{_mandir}/man1/*
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
-
+%defattr(-, games, games,2575)
+%dir %{_localstatedir}/games/xmris
+%defattr(-, games, games,464)
+%{_localstatedir}/games/xmris/xmris.scores
