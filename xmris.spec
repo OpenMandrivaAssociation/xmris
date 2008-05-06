@@ -17,7 +17,7 @@ Patch3:		xmris-wm-protocol.patch
 License: 	GPL
 Group:		Games/Arcade
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Buildrequires:	libxt-devel imake
+Buildrequires:	libxaw-devel imake
 URL:		http://www.cs.bris.ac.uk/~nathan/xmris
 
 %description
