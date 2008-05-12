@@ -1,6 +1,6 @@
 %define name	xmris
 %define version 4.0.5
-%define release %mkrel 5
+%define release %mkrel 6
 
 Name:		%{name}
 Summary:	A version of 'Mr Do' video game for X
@@ -62,7 +62,8 @@ Type=Application
 Categories=Game;ArcadeGame;
 Name=XMrIs
 Comment=Mr. Is, a Mr. Do clone for X
-Exec=%{_bindir}/xmrisIcon=xmris
+Exec=%{_gamesbindir}/xmris
+Icon=xmris
 EOF
 install -m 644 %{SOURCE10} $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 install -m 644 %{SOURCE11} $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
