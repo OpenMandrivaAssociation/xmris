@@ -92,6 +92,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %defattr(-, games, games,2575)
-%dir %{_localstatedir}/games/xmris
+%dir %{_localstatedir}/lib/games/xmris
 %defattr(-, games, games,464)
-%{_localstatedir}/games/xmris/xmris.scores
+%{_localstatedir}/lib/games/xmris/xmris.scores
