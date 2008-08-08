@@ -1,6 +1,6 @@
 %define name	xmris
 %define version 4.0.5
-%define release %mkrel 6
+%define release %mkrel 7
 
 Name:		%{name}
 Summary:	A version of 'Mr Do' video game for X
