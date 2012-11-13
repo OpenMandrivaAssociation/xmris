@@ -1,0 +1,51 @@
+diff -p -up xmris.4.0.5/timer.c.orig xmris.4.0.5/timer.c
+--- xmris.4.0.5/timer.c.orig	2008-05-06 15:19:12.000000000 -0300
++++ xmris.4.0.5/timer.c	2008-05-06 15:21:00.000000000 -0300
+@@ -303,14 +303,13 @@ extern VOIDFUNC timer_close FUNCARGVOID
+ #ifndef TRANSPUTER
+   if(data.busywait == False)
+     {
+-      MASK      mask;
++      sigset_t	mask;
+       
+-      signal_hold(SIGALRM, &mask);
++      sigprocmask(0, NULL, &mask);
+       timer.interval.it_value.tv_usec = 0;
+       timer.interval.it_interval.tv_usec = 0;
+       while(!timer.elapsed)
+-	signal_pause(&mask);
+-      signal_release(&mask);
++	sigsuspend(&mask);
+       setitimer(ITIMER_REAL, &timer.interval, (struct itimerval *)NULL);
+ #ifdef USESIGSET
+       sigset(SIGALRM, timer.handler);
+@@ -519,9 +518,9 @@ extern VOIDFUNC timer_wait FUNCARGVOID
+   /*}}}*/
+ #else
+   {
+-    MASK      mask;
+-    
+-    signal_hold(SIGALRM, &mask);
++    sigset_t	mask;
++
++    sigprocmask(0, NULL, &mask);
+     if(!timer.elapsed && data.busywait == False)
+       {
+ 	point = -1;
+@@ -530,7 +529,7 @@ extern VOIDFUNC timer_wait FUNCARGVOID
+ #endif
+ 	timer.waiting = 1;
+ 	while(timer.waiting)
+-	  signal_pause(&mask);
++	  sigsuspend(&mask);
+ #ifndef NDEBUG
+ 	timer_debug("Done wait");
+ #endif
+@@ -554,7 +553,6 @@ extern VOIDFUNC timer_wait FUNCARGVOID
+ 	    timer.missed++;
+ 	  }
+       }
+-    signal_release(&mask);
+   }
+ #ifdef BUSYWAIT
+   /*{{{  busywait?*/

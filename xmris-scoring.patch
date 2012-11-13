@@ -1,0 +1,22 @@
+diff -p -up xmris.4.0.5/scoring.c.orig xmris.4.0.5/scoring.c
+--- xmris.4.0.5/scoring.c.orig	2008-05-06 17:00:49.000000000 -0300
++++ xmris.4.0.5/scoring.c	2008-05-06 17:01:41.000000000 -0300
+@@ -31,9 +31,7 @@
+ #else
+ #include <pwd.h>
+ #include <sys/stat.h>
+-#ifdef USELOCKFILE
+ #include <fcntl.h>
+-#endif /* USELOCKFILE */
+ #endif /* TRANSPUTER */
+ /*}}}*/
+ /*{{{  file locking*/
+@@ -259,7 +259,7 @@
+ #endif /* USELOCKFILE */
+ #ifndef TRANSPUTER
+   if(stream && flag & 4 && effective_uid == real_uid)
+-    chmod(name, 0666); /* not everyone has fchmod */
++    chmod(name, 0664); /* not everyone has fchmod */
+   if(current_uid != real_uid)
+     set_euid((current_uid = real_uid));
+ #endif /* TRANSPUTER */
