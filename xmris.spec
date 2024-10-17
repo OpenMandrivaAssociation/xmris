@@ -18,7 +18,7 @@ License: 	GPL
 Group:		Games/Arcade
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Buildrequires:	libxaw-devel imake
-URL:		http://www.cs.bris.ac.uk/~nathan/xmris
+URL:		https://www.cs.bris.ac.uk/~nathan/xmris
 
 %description
 Mr Is is a version of the Mr Do video arcade game for the X Window System.
